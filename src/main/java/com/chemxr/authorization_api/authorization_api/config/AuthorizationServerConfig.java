@@ -28,30 +28,19 @@ public class AuthorizationServerConfig {
                                                                       OAuth2AuthorizationService authorizationService,
                                                                       OAuth2AuthorizationConsentService authorizationConsentService,
                                                                       AuthenticationManager authenticationManager) {
-
         http.oauth2AuthorizationServer(server -> {
-
-            // Automatically protects all OAuth2 endpoints
             http.securityMatcher(server.getEndpointsMatcher());
-
-            // Optional if you provide your own token generator
             server.tokenGenerator(tokenGenerator);
-
-            // Leave these alone unless you're actually customizing them
             server.clientAuthentication(Customizer.withDefaults());
             server.tokenEndpoint(Customizer.withDefaults());
             server.tokenIntrospectionEndpoint(Customizer.withDefaults());
             server.tokenRevocationEndpoint(Customizer.withDefaults());
-
         });
 
         http
                 .securityMatcher("/oauth2/**", "/.well-known/**")
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/oauth2/**", "/.well-known/**"))
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
-
-//        http.authorizeHttpRequests(authorize ->
-//                authorize.anyRequest().authenticated());
 
         return http.build();
     }
