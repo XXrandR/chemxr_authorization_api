@@ -29,3 +29,9 @@ curl -v -X POST http://localhost:8080/oauth2/token \
   -d "password=1234" \
   -d "scope=api.read"
 ```
+
+
+## DOCUMENTACION DE SEGURIDAD
+```bash
+https://docs.spring.io/spring-security/reference/servlet/oauth2/authorization-server/getting-started.html
+```
